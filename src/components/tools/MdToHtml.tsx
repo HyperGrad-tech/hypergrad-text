@@ -10,11 +10,11 @@ const STYLE_CSS = `
 .md-body h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: .3em; }
 .md-body h3 { font-size: 1.25em; }
 .md-body p { margin: .8em 0; }
-.md-body a { color: #2D5A4F; text-decoration: none; }
+.md-body a { color: #6366F1; text-decoration: none; }
 .md-body a:hover { text-decoration: underline; }
 .md-body ul,.md-body ol { padding-left: 1.6em; margin: .6em 0; }
 .md-body li { margin: .25em 0; }
-.md-body blockquote { border-left: 4px solid #2D5A4F; padding: .2em 1em; color: #4b5563; background: #EEF5F1; margin: .8em 0; }
+.md-body blockquote { border-left: 4px solid #6366F1; padding: .2em 1em; color: #4b5563; background: #EEF2FF; margin: .8em 0; }
 .md-body code { background: #f3f4f6; padding: .15em .4em; border-radius: 4px; font-family: "SF Mono", Consolas, "Liberation Mono", Menlo, monospace; font-size: .9em; color: #c7254e; }
 .md-body pre { background: #1f2937; color: #e2e8f0; padding: 1em; border-radius: 6px; overflow-x: auto; margin: .8em 0; }
 .md-body pre code { background: transparent; padding: 0; color: inherit; font-size: .875em; }

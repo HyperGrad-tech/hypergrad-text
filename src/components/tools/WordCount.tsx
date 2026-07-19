@@ -74,10 +74,21 @@ export default function WordCount() {
     { key: 'paragraphs', label: '段落数', tip: '以空行分隔的段落数。', enabled: options.countParagraphs },
     { key: 'bytes', label: '字节数 (UTF-8)', tip: 'UTF-8 编码后的字节数。中文每字 3 字节，英文每字 1 字节。', enabled: true, highlight: false },
     { key: 'punct', label: '标点数', tip: '中英文标点字符总数。', enabled: true },
+    { key: 'digitRuns', label: '数字串数', tip: '连续数字算一串。', enabled: true },
   ];
 
   return (
     <div className="wc-tool">
+      {/* 统计结果横向卡片，放在文本框上方，让用户先看到结果 */}
+      <div className="wc-stats-bar">
+        {metricDefs.filter(m => m.enabled).map(m => (
+          <div key={m.key} className={`wc-stat-card ${m.highlight ? 'highlight' : ''}`} title={m.tip}>
+            <div className="wc-stat-card-label">{m.label}</div>
+            <div className="wc-stat-card-value">{stats[m.key].toLocaleString()}</div>
+          </div>
+        ))}
+      </div>
+
       <div className="wc-toolbar">
         {samples.map((s, i) => (
           <button key={i} className="btn btn-sm btn-ghost" onClick={() => setText(s.value)}>示例</button>
@@ -87,29 +98,13 @@ export default function WordCount() {
         <span className="wc-tip">实时统计 · 数据不离开浏览器</span>
       </div>
 
-      <div className="wc-grid">
-        <textarea
-          className="wc-input"
-          value={text}
-          onChange={e => setText(e.target.value)}
-          placeholder="在此粘贴或输入文本，自动统计字数…"
-          spellCheck={false}
-        />
-        <div className="wc-stats">
-          <div className="wc-stats-title">统计结果</div>
-          {metricDefs.filter(m => m.enabled).map(m => (
-            <div key={m.key} className={`wc-stat-row ${m.highlight ? 'highlight' : ''}`}>
-              <div className="wc-stat-label" title={m.tip}>{m.label}</div>
-              <div className="wc-stat-value">{stats[m.key].toLocaleString()}</div>
-            </div>
-          ))}
-          <div className="wc-stat-divider"></div>
-          <div className="wc-stat-row">
-            <div className="wc-stat-label">数字串数</div>
-            <div className="wc-stat-value">{stats.digitRuns.toLocaleString()}</div>
-          </div>
-        </div>
-      </div>
+      <textarea
+        className="wc-input"
+        value={text}
+        onChange={e => setText(e.target.value)}
+        placeholder="在此粘贴或输入文本，自动统计字数…"
+        spellCheck={false}
+      />
 
       <details className="wc-options">
         <summary>显示选项</summary>

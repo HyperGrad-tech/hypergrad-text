@@ -4,11 +4,11 @@
  * ============================================ */
 
 :root {
-  /* ===== 色彩系统（文本站主色：深绿 #2D5A4F） ===== */
-  --blue: #2D5A4F;
-  --blue-light: #3D7A6F;
-  --blue-dark: #1F4035;
-  --blue-bg: #EEF5F1;
+  /* ===== 色彩系统（文本站主色：深绿 #6366F1） ===== */
+  --blue: #6366F1;
+  --blue-light: #818CF8;
+  --blue-dark: #4F46E5;
+  --blue-bg: #EEF2FF;
 
   --bg: #FAFAF7;
   --bg-card: #FFFFFF;
@@ -916,7 +916,7 @@ input, textarea, select {
   font-size: 13px;
   line-height: 1.7;
 }
-.json-key { color: #3B7AB0; }
+.json-key { color: #818CF8; }
 .json-string { color: #2D7A4F; }
 .json-number { color: #C8862E; }
 .json-boolean { color: #B83A3A; }
@@ -989,4 +989,117 @@ input, textarea, select {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: var(--space-md);
+}
+
+/* ============================================
+ * WordCount 字数统计组件
+ * ============================================ */
+.wc-tool {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.wc-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+.wc-stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.wc-stat-card:hover {
+  border-color: var(--blue-light);
+}
+.wc-stat-card.highlight {
+  background: var(--blue-bg);
+  border-color: var(--blue-light);
+}
+.wc-stat-card-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.wc-stat-card-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.wc-stat-card.highlight .wc-stat-card-value {
+  color: var(--blue-dark);
+}
+.wc-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.wc-tip {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.wc-input {
+  width: 100%;
+  min-height: 320px;
+  resize: vertical;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-card);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+.wc-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-bg);
+}
+.wc-input::placeholder {
+  color: var(--text-light);
+}
+.wc-options {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: var(--bg-soft);
+}
+.wc-options summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 14px;
+  user-select: none;
+}
+.wc-options summary:hover {
+  color: var(--blue);
+}
+.wc-option-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+}
+.wc-option-grid label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px 0;
+}
+.wc-option-grid input[type="checkbox"] {
+  cursor: pointer;
 }
