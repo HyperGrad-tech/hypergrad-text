@@ -1,0 +1,39 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import CaseConvert from '../components/tools/CaseConvert.tsx';
+---
+<ToolLayout slug="case-convert">
+  <CaseConvert client:load />
+  <div slot="seo-content">
+    <h2>在线大小写转换工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费在线大小写转换工具，支持 10 种主流命名风格互转：
+      UPPER（全大写）、lower（全小写）、Title Case（标题大写）、Sentence case（句首大写）、
+      camelCase（小驼峰）、PascalCase（大驼峰）、snake_case（下划线）、kebab-case（连字符）、
+      CONSTANT_CASE（常量大写）、dot.case（点分隔）。中文会作为词边界处理，方便中英混合文本正确分词。
+      所有转换在浏览器本地完成，不上传服务器。
+    </p>
+    <h3>各场景推荐风格</h3>
+    <ul>
+      <li><strong>UPPER / lower</strong>：标题强调、英文海报、统一格式化。</li>
+      <li><strong>Title Case</strong>：英文文章标题、书名、电影名（每个实词首字母大写）。</li>
+      <li><strong>camelCase</strong>：Java、JavaScript、TypeScript 的变量名与函数名。</li>
+      <li><strong>PascalCase</strong>：React/Vue 组件名、C# 类名、TypeScript 接口名。</li>
+      <li><strong>snake_case</strong>：Python、Ruby、Rust 的变量名、SQL 字段名、JSON key。</li>
+      <li><strong>kebab-case</strong>：CSS 类名、HTML 自定义元素、URL 路径、HTTP Header。</li>
+      <li><strong>CONSTANT_CASE</strong>：所有语言的常量定义（如 MAX_RETRY_COUNT）。</li>
+    </ul>
+    <h3>中文如何处理</h3>
+    <p>
+      中文没有大小写概念，工具只处理 ASCII 字母。但会把中文当作「词边界」处理：
+      例如「网站title SEO优化」转 Title Case 会正确得到「网站Title SEO优化」，
+      而不是把整段当一个大写单词。这让中英混合的 UI 文案、博客标题转换更可靠。
+    </p>
+    <h3>分词算法</h3>
+    <p>
+      驼峰/下划线/连字符互转的关键是正确识别词边界。本工具结合三种信号识别词：
+      大小写变换（myVar → my Var）、分隔符（my-var / my_var → my Var）、
+      数字与字母边界（file2name → file 2 name）、中英边界。组合识别后能正确处理绝大多数真实变量名。
+    </p>
+  </div>
+</ToolLayout>

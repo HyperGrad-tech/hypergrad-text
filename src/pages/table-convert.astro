@@ -1,0 +1,41 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import TableConvert from '../components/tools/TableConvert.tsx';
+---
+<ToolLayout slug="table-convert">
+  <TableConvert client:load />
+  <div slot="seo-content">
+    <h2>CSV / TSV / JSON / Markdown 表格互转工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费表格格式转换工具，支持 CSV、TSV、JSON、Markdown 表格四种格式任意互转，
+      自动识别表头与字段类型，完整实现 RFC 4180 引号转义标准，支持嵌套 JSON 对象展开。
+      所有转换在浏览器本地完成，CSV、JSON、表格数据均不上传服务器，适合转换客户名单、产品数据、销售记录等敏感数据。
+    </p>
+    <h3>四种格式特点</h3>
+    <ul>
+      <li><strong>CSV</strong>：逗号分隔，RFC 4180 标准。含逗号、换行、双引号的字段用双引号包围，字段内双引号转义为两个连续双引号。Excel 导出默认格式。</li>
+      <li><strong>TSV</strong>：Tab 分隔，适合复制粘贴到 Excel/Sheets，自动分列。</li>
+      <li><strong>JSON</strong>：第一行作 key，其余作对象数组。嵌套对象用 . 连接键名（如 user.address.city），数组字段展开为多行。</li>
+      <li><strong>Markdown 表格</strong>：| 列 | 列 | 语法，第一行表头，第二行 | --- | 分隔。GitHub、Notion、Obsidian 等支持。</li>
+    </ul>
+    <h3>CSV 引号转义</h3>
+    <p>
+      CSV 字段里含逗号怎么办？标准做法是用双引号包围该字段，字段内的双引号转义为两个连续双引号。
+      例如 "字段,含逗号" 会被解析为一个完整字段「字段,含逗号」。本工具完整实现 RFC 4180，
+      能正确解析 Excel 导出的 CSV，也能输出 Excel 可正确导入的 CSV。
+    </p>
+    <h3>JSON 嵌套对象展开</h3>
+    <p>
+      JSON 转 CSV/TSV 时，嵌套对象会被展开为多列，用 . 连接键名（user.address.city → user.address.city 列）。
+      数组字段按数组长度展开为多行，每行对应一个数组元素。这样保证不丢失数据，但列数会增多。
+      如果不希望展开，建议先在 JSON 处理工具里把嵌套结构扁平化。
+    </p>
+    <h3>典型场景</h3>
+    <ul>
+      <li>把 Excel 导出的 CSV 转 JSON 给前端用。</li>
+      <li>把 API 返回的 JSON 转 Markdown 表格贴进文档。</li>
+      <li>把 Markdown 文档里的表格转 CSV 再粘进 Excel。</li>
+      <li>把数据库导出的 TSV 转 JSON 喂给 ETL 工具。</li>
+    </ul>
+  </div>
+</ToolLayout>

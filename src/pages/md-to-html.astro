@@ -1,0 +1,36 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import MdToHtml from '../components/tools/MdToHtml.tsx';
+---
+<ToolLayout slug="md-to-html">
+  <MdToHtml client:load />
+  <div slot="seo-content">
+    <h2>Markdown 转 HTML 工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费 Markdown 转 HTML 工具，基于 marked 解析器，完整支持 GFM（GitHub Flavored Markdown）扩展语法。
+      可选输出带样式（自带 CSS 的完整 HTML 文件，直接保存可用）或纯净 HTML（移除所有 class 与 data 属性，便于粘贴到限制 class 的 CMS）。
+      一键复制 HTML 源码或下载独立 .html 文件。所有转换在浏览器本地完成，不上传服务器。
+    </p>
+    <h3>支持的 Markdown 语法</h3>
+    <ul>
+      <li><strong>表格</strong>：GFM 表格语法（| 列 | 列 |），支持对齐标记（:---、---:、:---:），生成带 thead/tbody 结构的 HTML 表格。</li>
+      <li><strong>代码块</strong>：代码围栏 ``` 围起来的多行代码，输出 &lt;pre&gt;&lt;code class="language-xxx"&gt; 标签，便于后续接 highlight.js / Prism.js 高亮。</li>
+      <li><strong>任务列表</strong>：- [x] / - [ ] 输出带 checkbox 的列表项。</li>
+      <li><strong>删除线、自动链接、行内代码</strong>：GFM 全支持。</li>
+    </ul>
+    <h3>两种输出模式</h3>
+    <ul>
+      <li><strong>HTML 源码</strong>：仅生成 body 内的 HTML 标签，便于复制粘贴到现有页面或 CMS 富文本编辑器。</li>
+      <li><strong>完整 HTML 文件</strong>：包含 DOCTYPE、head、style 的独立 HTML，自带样式可直接保存为 .html 用浏览器打开。</li>
+    </ul>
+    <h3>纯净 HTML 模式</h3>
+    <p>
+      开启「纯净 HTML」后，工具会移除所有 class 和 data 属性，只保留结构标签（h1、p、ul、table、pre 等）。
+      适合直接粘贴到限制 class 的 CMS、邮件模板、受限的富文本编辑器。如需自定义样式，可在你自己的页面里用 CSS 选择器统一定义。
+    </p>
+    <p>
+      暂不支持脚注 [^1] 与 LaTeX 数学公式 $...$，这两个语法需要额外插件（markdown-it-footnote、markdown-it-katex）配套 CSS 才能正确渲染。
+      建议用专门的文档系统（如 Docusaurus、VuePress）处理这两种语法。
+    </p>
+  </div>
+</ToolLayout>

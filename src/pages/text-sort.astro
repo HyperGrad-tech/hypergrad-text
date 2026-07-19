@@ -1,0 +1,35 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import TextSort from '../components/tools/TextSort.tsx';
+---
+<ToolLayout slug="text-sort">
+  <TextSort client:load />
+  <div slot="seo-content">
+    <h2>在线文本排序工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费在线文本排序工具，按行升序、降序、随机打乱、反转输出，
+      支持四种比较类型：字符串（ASCII）、自然排序（file2 排在 file10 之前）、数值（按数字大小）、字符长度。
+      区分大小写与移除空行可选。所有排序在浏览器本地完成，不上传服务器，适合整理名单、商品 ID、版本号、统计数据。
+    </p>
+    <h3>四种排序类型详解</h3>
+    <ul>
+      <li><strong>字符串（ASCII）</strong>：默认按 Unicode 码点逐字符比较。适合纯粹按字母顺序排序。</li>
+      <li><strong>自然排序（Natural）</strong>：识别行内的数字部分按数值大小排序。file2 会正确排在 file10 之前，而不是 ASCII 默认的 file10 &lt; file2。文件名、版本号、章节编号排序必用此项。</li>
+      <li><strong>数值排序</strong>：提取每行开头或包含的数字按数值排序。适合排序销售额、版本号、统计数据等含数字的行。无数字的行按 0 处理。</li>
+      <li><strong>字符长度</strong>：按行字符长度排序。常用于找出异常长行（可能是数据错误）或排序短消息列表。</li>
+    </ul>
+    <h3>四种排序模式</h3>
+    <ul>
+      <li><strong>升序</strong>：从小到大。</li>
+      <li><strong>降序</strong>：从大到小。</li>
+      <li><strong>随机打乱</strong>：使用 Fisher-Yates 洗牌算法配合 crypto.getRandomValues 真随机源，每次结果不同。适合抽奖、随机抽样。</li>
+      <li><strong>反转</strong>：把原顺序完全倒过来，第一个变最后一个。</li>
+    </ul>
+    <h3>为什么 file10 排在 file2 前面</h3>
+    <p>
+      这是 ASCII 字符串排序的经典坑：逐字符比较时，「1」&lt;「2」，所以「file10...」会排在「file2...」之前。
+      开启「自然排序」后，工具会识别数字部分按数值大小排序，file2 正确排在 file10 之前。
+      文件名、版本号、章节号排序务必用自然排序。
+    </p>
+  </div>
+</ToolLayout>

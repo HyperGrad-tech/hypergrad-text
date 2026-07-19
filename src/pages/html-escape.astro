@@ -1,0 +1,40 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import HtmlEscape from '../components/tools/HtmlEscape.tsx';
+---
+<ToolLayout slug="html-escape">
+  <HtmlEscape client:load />
+  <div slot="seo-content">
+    <h2>HTML 实体转义工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费 HTML 实体转义工具，支持 HTML、JSX、JS 字符串、URL 编码四种类型双向转义（encode/decode），
+      完整处理 &amp; &lt; &gt; " ' / 以及所有命名实体。所有处理在浏览器本地完成，不上传服务器，
+      适合前端开发、模板编写、XSS 防护、URL 字符串拼接等场景。
+    </p>
+    <h3>四种转义类型</h3>
+    <ul>
+      <li><strong>HTML 转义</strong>：把 &amp; &lt; &gt; " ' / 转为 &amp;amp; &amp;lt; &amp;gt; &amp;quot; &amp;#39; &amp;#47;，让浏览器把这些字符当文本而非 HTML 标签解析，防 XSS。</li>
+      <li><strong>JSX 转义</strong>：比 HTML 多转义 &#123; 和 &#125;（因为 JSX 用大括号表示表达式），转义为 &amp;#123; / &amp;#125;，避免 JSX 解析器把模板中的大括号当表达式。</li>
+      <li><strong>JS 字符串</strong>：转义为 JS 字符串字面量内容，<code set:html={'\\\\ \\" \\n \\r \\t'}></code> 等，用于把多行文本安全嵌入 JS 字符串。</li>
+      <li><strong>URL 编码</strong>：encodeURIComponent，把空格/中文/特殊字符转为 %20/%E4%B8%AD，用于 URL 参数拼接。</li>
+    </ul>
+    <h3>HTML 转义 vs URL 编码</h3>
+    <p>
+      两者容易混淆：HTML 转义是让字符在「HTML 文档里」安全显示（&lt;script&gt; → &amp;lt;script&amp;gt;），防止浏览器把文字当标签执行；
+      URL 编码是让字符在「URL 里」安全传递（空格 → %20，中文 → %E4%B8%AD），防止 URL 解析错误。
+      场景完全不同，本工具可在同一界面切换。
+    </p>
+    <h3>反转义智能识别</h3>
+    <p>
+      反向转义（decode）时工具会智能识别已有实体。例如输入 &amp;lt;a&amp;gt;&amp;amp;b 会还原为 &lt;a&gt;&amp;b。
+      但正向转义（encode）不识别已转义的内容——会再次转义。这是安全默认行为，避免漏转导致 XSS。
+    </p>
+    <h3>常见踩坑场景</h3>
+    <ul>
+      <li>用户输入直接 innerHTML 渲染 → 必须先 HTML 转义，否则 &lt;script&gt; 会被执行。</li>
+      <li>模板字面量里写 $&#123;userInput&#125; → 若内容含反引号会破坏模板，需 JS 字符串转义。</li>
+      <li>URL 里拼接中文参数 → 必须 encodeURIComponent，否则部分浏览器报错。</li>
+      <li>JSX 组件里展示 &#123; &#125; 字符 → 必须转义为 &#123;'&#123;'&#125; 表达式或 &amp;#123; HTML 实体。</li>
+    </ul>
+  </div>
+</ToolLayout>

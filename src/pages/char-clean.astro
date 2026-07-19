@@ -1,0 +1,35 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import CharClean from '../components/tools/CharClean.tsx';
+---
+<ToolLayout slug="char-clean">
+  <CharClean client:load />
+  <div slot="seo-content">
+    <h2>隐形字符清理工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费隐形字符清理工具，专为检测并清除肉眼看不见但会影响字符串比较、长度计算、程序解析的字符而设计。
+      支持识别 U+200B（零宽空格）、U+200C（零宽非连接符）、U+200D（零宽连接符）、U+2060、U+FEFF（BOM/零宽不换行空格）、
+      不可打印控制符（<code set:html={'\\x00-\\x1F'}></code>）、全角空格（U+3000）等。并能在粘贴文本后立即报告各类隐形字符数量，方便判断文本是否被插入 AIGC 水印。
+      所有清理在浏览器本地完成，不上传服务器。
+    </p>
+    <h3>什么是 AIGC 水印</h3>
+    <p>
+      部分 AI 生成文本会在内容中插入零宽字符作为「水印」，零宽字符肉眼不可见但占用字节，可用于后续识别这段文字出自 AI。
+      如果你担心公开发布的文本被 AI 检测器识别，可以把内容粘贴到本工具清理后再发布——清理后文本功能不变但水印被抹除。
+      本工具会单独标记找到的零宽字符数量，方便你判断是否含水印。
+    </p>
+    <h3>常见隐形字符问题</h3>
+    <ul>
+      <li><strong>复制代码运行报错</strong>：从网页、聊天工具复制的代码可能含零宽字符或全角空格，编辑器看不到但解释器报错。</li>
+      <li><strong>字符串长度对不上</strong>：肉眼看着是 10 个字，length 却是 12——多半是混入了零宽字符。</li>
+      <li><strong>字符串相等比较失败</strong>：两个看着一样的字符串 == 返回 false，因为含不同的不可见字符。</li>
+      <li><strong>JSON 解析失败</strong>：BOM 出现在 JSON 开头会让部分解析器报「Unexpected token <code set:html={'\\uFEFF'}></code>」。</li>
+    </ul>
+    <h3>清理选项</h3>
+    <p>
+      默认开启「清除零宽字符」「清除 BOM」「清除控制符」三项——这三个默认安全，不会改变可见内容。
+      「全角空格→半角」「合并连续空白」「删除行尾空白」默认关闭，按需开启。
+      清理后给出原长度与清理后长度对比，让改动可见。
+    </p>
+  </div>
+</ToolLayout>

@@ -1,0 +1,39 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import AsciiConvert from '../components/tools/AsciiConvert.tsx';
+---
+<ToolLayout slug="ascii-convert">
+  <AsciiConvert client:load />
+  <div slot="seo-content">
+    <h2>ASCII 编码转换工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费 ASCII 编码转换工具，文本与 ASCII 码（十进制、十六进制、二进制）双向互转，
+      支持查询字符 ASCII 码值表，自动标注控制字符名称（NUL、LF、CR、ESC 等共 33 个）。
+      所有转换在浏览器本地完成，适合教学演示、串口/嵌入式协议调试、字符编码学习。
+    </p>
+    <h3>ASCII 与 Unicode 的关系</h3>
+    <p>
+      ASCII 是 7 位字符集（0-127），定义了英文字母、数字、标点和控制字符；
+      Unicode 是全球统一字符集，前 128 个码点与 ASCII 完全一致——所以 ASCII 是 Unicode 的子集。
+      本工具支持 0-255 的扩展 ASCII（含 Latin-1 西欧字符），中文字符请使用「Unicode 编码转换」工具。
+    </p>
+    <h3>三种进制输出</h3>
+    <ul>
+      <li><strong>十进制</strong>：字符直接对应数字码值，如 H = 72、e = 101。最直观。</li>
+      <li><strong>十六进制</strong>：协议、内存地址、字节序列常用，如 H = 0x48、中 = 0xE4 0xB8 0xAD（UTF-8 三字节）。</li>
+      <li><strong>二进制</strong>：位运算、嵌入式、网络协议调试场景，每字符 8 位。</li>
+    </ul>
+    <h3>0-31 控制字符</h3>
+    <p>
+      ASCII 0-31 与 127 是不可打印控制字符，包括 NUL（0）、LF（10，换行）、CR（13，回车）、
+      ESC（27，转义）、DEL（127，删除）等。这些字符在终端/串口通信、嵌入式协议中常见。
+      本工具会在转换结果与对照表中标注控制字符名称，方便识别。
+    </p>
+    <h3>中文转 ASCII 的说明</h3>
+    <p>
+      中文不在 ASCII 字符集内，无法用单字节 ASCII 表示。本工具会展示每个中文字的 Unicode 码点
+      （如「中」= 20013 = 0x4E2D），但这其实已是 Unicode 范畴，不是严格 ASCII。
+      建议中文场景使用「Unicode 编码转换」工具，可获得 UTF-8/UTF-16 字节序列、HTML 实体等多种表示。
+    </p>
+  </div>
+</ToolLayout>

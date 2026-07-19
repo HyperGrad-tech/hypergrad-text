@@ -1,0 +1,41 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import UnicodeConvert from '../components/tools/UnicodeConvert.tsx';
+---
+<ToolLayout slug="unicode-convert">
+  <UnicodeConvert client:load />
+  <div slot="seo-content">
+    <h2>Unicode 编码转换工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费 Unicode 编码转换工具，文本与 Unicode 互转，同时给出码点（U+XXXX）、
+      <code set:html={'\\uXXXX'}></code> 转义（JavaScript/Java）、UTF-8 字节序列、UTF-16 单元（含代理对）、HTML 实体（&#NNN;）五种表示。
+      完整支持 emoji（如 😀 = U+1F600）与扩展平面字符，自动识别与生成代理对。所有转换在浏览器本地完成，
+      适合国际化开发、emoji 处理、源码中文字段处理、字符编码学习。
+    </p>
+    <h3><code set:html={'\\uXXXX'}></code> 与 U+XXXX 的区别</h3>
+    <p>
+      <strong><code set:html={'\\uXXXX'}></code></strong> 是 JavaScript/Java/Python 字符串中的转义序列，4 位十六进制，
+      只能表示基本多文种平面（BMP，0-65535）的字符。<strong>U+XXXX</strong> 是 Unicode 码点表示法，
+      可表示所有码点（含扩展平面，用 5-6 位十六进制，如 U+1F600）。
+      emoji 等超出 BMP 的字符需用 U+XXXX 或 UTF-16 代理对表示。
+    </p>
+    <h3>emoji 与代理对</h3>
+    <p>
+      😀（U+1F600）超出 BMP，UTF-16 用代理对 <code set:html={'\\uD83D\\uDE00'}></code> 表示（由高位代理 D83D 与低位代理 DE00 组成），
+      UTF-8 是 4 字节 F0 9F 98 80。本工具会同时显示码点、UTF-8 字节、UTF-16 单元、JS 转义、HTML 实体五种表示，
+      方便开发者按语言规范选用。反向转换 emoji 时会输出代理对（JavaScript 风格）和码点（U+1F600 风格）两种。
+    </p>
+    <h3>常见使用场景</h3>
+    <ul>
+      <li><strong>源码中文转义</strong>：把源码里的中文字段转 <code set:html={'\\uXXXX'}></code> 以避免编码问题（如 ASCII-only 字符串）。</li>
+      <li><strong>emoji 在不同语言的表示</strong>：Python 用 <code set:html={'\\U0001F600'}></code>（8 位），JS 用 <code set:html={'\\uD83D\\uDE00'}></code>（代理对），HTML 用 &amp;#128512;。</li>
+      <li><strong>编码排错</strong>：字符显示乱码时，查它的码点与字节序列判断是 UTF-8 还是 GBK 还是 Latin-1 误读。</li>
+      <li><strong>扩展汉字</strong>：CJK Extension B/C/D/E（古籍生僻字）超出 BMP，需用代理对或 U+XXXXX 表示。</li>
+    </ul>
+    <h3>支持的反向输入格式</h3>
+    <p>
+      解码模式支持四种格式混合输入：<code set:html={'\\uXXXX'}></code>（含代理对 <code set:html={'\\uD83D\\uDE00'}></code>）、U+XXXXX（5-6 位码点）、
+      &#NNN;（十进制 HTML 实体）、&#xHH;（十六进制 HTML 实体）。工具会逐段识别并还原为字符。
+    </p>
+  </div>
+</ToolLayout>

@@ -1,0 +1,38 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import TextDiff from '../components/tools/TextDiff.tsx';
+---
+<ToolLayout slug="text-diff">
+  <TextDiff client:load />
+  <div slot="seo-content">
+    <h2>在线文本对比 / Diff 工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费在线文本对比工具，并排显示两段文本，逐行高亮新增、删除、修改内容，
+      并在修改行内做字符级 diff 高亮，让改动一目了然。基于 LCS（最长公共子序列）与 Myers 差分算法——Git diff 的同源算法，
+      对代码、合同、协议、文档版本对比精度足够。所有对比在浏览器本地完成，原始与修改文本均不上传服务器，适合对比未公开代码与敏感商业文档。
+    </p>
+    <h3>三种差异类型</h3>
+    <ul>
+      <li><strong>新增（绿色 +）</strong>：在修改文本中出现、原文没有的行。</li>
+      <li><strong>删除（红色 -）</strong>：在原文中出现、修改文本没有的行。</li>
+      <li><strong>修改（黄色 ~）</strong>：相邻的删除+新增配对，行内字符级 diff 标出具体变动的字。</li>
+    </ul>
+    <h3>忽略选项说明</h3>
+    <p>
+      对比代码或文档时，常常需要忽略无意义的差异。本工具提供三个开关：
+    </p>
+    <ul>
+      <li><strong>忽略行尾空白</strong>：行末多余的空格/tab 不算差异（推荐默认开）。</li>
+      <li><strong>忽略空行差异</strong>：空行的增删不计入变更，适合对比时排版有变化的文档。</li>
+      <li><strong>忽略大小写</strong>：把所有字母统一为小写再对比，适合配置文件 key 不分大小写的场景。</li>
+    </ul>
+    <p>
+      注意：这些开关只影响 diff 计算，显示时仍保留原始大小写与空白，方便你查看真实内容。
+    </p>
+    <h3>大文件性能</h3>
+    <p>
+      LCS 算法复杂度是 O(n×m)，对几万行文本仍能秒级返回。超过 10 万行可能卡顿，建议先用「文本去重」或按章节切分后再对比。
+      如果只需要对比两个长 JSON 或 CSV 的结构差异，建议先格式化再对比。
+    </p>
+  </div>
+</ToolLayout>

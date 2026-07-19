@@ -1,0 +1,36 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import ReverseText from '../components/tools/ReverseText.tsx';
+---
+<ToolLayout slug="reverse-text">
+  <ReverseText client:load />
+  <div slot="seo-content">
+    <h2>文本翻转工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费文本翻转工具，支持逐字符翻转、逐词翻转、逐行翻转、逆序输出四种方式，
+      可选保留标点位置。使用 ES6 扩展运算符按 Unicode 码点分割，正确处理 emoji 与代理对，中英文混合文本均能正确翻转。
+      所有处理在浏览器本地完成，适合镜像文字、古文研究、字符串测试、趣味排版。
+    </p>
+    <h3>四种翻转方式</h3>
+    <ul>
+      <li><strong>逐字符翻转</strong>：把每个字符顺序倒过来。Hello World → dlroW olleH。多用于加密、镜像字、字符串测试。</li>
+      <li><strong>逐词翻转</strong>：把词序倒过来但词内字母顺序不变。Hello World → World Hello。多用于语法分析或诗歌手法研究（如诗词倒装）。</li>
+      <li><strong>逐行翻转</strong>：把行序整体倒置，第 1 行变成最后一行。常用于把时间线倒序、把日志最新行放最上面。</li>
+      <li><strong>保留标点位置</strong>：标点（中英文逗号、句号、问号、感叹号、引号）位置不变，只翻转字母与汉字。适合翻转句子而又保持阅读节奏：Hello, World! → olleH, dlroW!</li>
+    </ul>
+    <h3>正确处理 Unicode</h3>
+    <p>
+      本工具使用 [...str] 扩展运算符按 Unicode 码点分割，而非按 UTF-16 单元（char）分割——
+      这能正确处理代理对（emoji）和组合字符（如带音标的字母）。
+      例如「你好😀」逐字符翻转得到「😀好你」，而不是乱码。
+      多数简易翻转工具用 split('') 会把 emoji 切成两半导致乱码，本工具不会有此问题。
+    </p>
+    <h3>常见应用场景</h3>
+    <ul>
+      <li><strong>镜像文字</strong>：制作艺术排版、倒念诗、趣味文案。</li>
+      <li><strong>字符串测试</strong>：验证程序是否正确处理 Unicode、回文判断、编码边界。</li>
+      <li><strong>古文研究</strong>：古籍倒读、回文诗研究。</li>
+      <li><strong>日志/时间线倒序</strong>：把最新条目放最上面，方便阅读。</li>
+    </ul>
+  </div>
+</ToolLayout>

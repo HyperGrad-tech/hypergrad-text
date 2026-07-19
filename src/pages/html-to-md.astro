@@ -1,0 +1,38 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import HtmlToMd from '../components/tools/HtmlToMd.tsx';
+---
+<ToolLayout slug="html-to-md">
+  <HtmlToMd client:load />
+  <div slot="seo-content">
+    <h2>HTML 转 Markdown 工具</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费 HTML 转 Markdown 工具，基于 Turndown 算法，递归处理嵌套结构，
+      支持复杂表格、嵌套列表、代码块、链接图片的语义保留。出于安全考虑，自动清理 &lt;script&gt;、&lt;iframe&gt;、
+      &lt;object&gt;、&lt;embed&gt;、&lt;style&gt; 等可执行/嵌入标签及其内容，保证转出的 Markdown 不会引入 XSS 风险。
+      所有转换在浏览器本地完成，适合博客搬家、网页归档、把富文本内容迁移到 Markdown 系统。
+    </p>
+    <h3>复杂表格转换策略</h3>
+    <p>
+      Markdown 表格语法不支持 colspan/rowspan 合并单元格。遇到合并单元格的表格，工具会把合并单元格拆开重复内容，
+      保证数据不丢失但视觉结构改变。建议复杂带合并的表格保留原文 HTML 段落嵌入 Markdown（Markdown 允许直接写 HTML）。
+    </p>
+    <h3>列表与代码块的处理</h3>
+    <ul>
+      <li><strong>嵌套列表</strong>：递归处理 &lt;ul&gt;&lt;ol&gt; 嵌套，根据缩进生成正确的子列表层级（每级 2 空格缩进）。深度超过 6 级的部分 Markdown 渲染器可能不支持。</li>
+      <li><strong>代码块</strong>：&lt;pre&gt;&lt;code&gt; 转为围栏代码块 ```...```，保留语言标识（若 class 含 language-xxx）。</li>
+      <li><strong>任务列表</strong>：&lt;input type="checkbox"&gt; 转为 - [x] / - [ ]。</li>
+      <li><strong>删除线</strong>：&lt;del&gt;、&lt;s&gt;、&lt;strike&gt; 转为 ~~text~~。</li>
+    </ul>
+    <h3>关于 inline style</h3>
+    <p>
+      Markdown 不支持 inline style，工具会移除所有 style 属性。颜色、字体、背景等无法对应到 Markdown 语义的样式会被丢弃，
+      只有可近似还原的（加粗/斜体/标题）会被保留。如需保留视觉差异，建议在转换后手动调整 Markdown 语义。
+    </p>
+    <h3>安全清理策略</h3>
+    <p>
+      转换前会移除所有 script、iframe、object、embed、style 标签及内容。&lt;img&gt;、&lt;a&gt;、&lt;video&gt; 等内容标签保留。
+      这样转出的 Markdown 文档可直接放入静态生成器或博客系统，不会引入 XSS 风险。
+    </p>
+  </div>
+</ToolLayout>

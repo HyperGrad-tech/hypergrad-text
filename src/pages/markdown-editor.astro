@@ -1,0 +1,32 @@
+---
+import ToolLayout from '../layouts/ToolLayout.astro';
+import MarkdownEditor from '../components/tools/MarkdownEditor.tsx';
+---
+<ToolLayout slug="markdown-editor">
+  <MarkdownEditor client:load />
+  <div slot="seo-content">
+    <h2>在线 Markdown 编辑器</h2>
+    <p>
+      这是 HyperGrad Text 提供的免费在线 Markdown 编辑器，采用左右分栏实时预览架构，支持 CommonMark 标准与 GFM（GitHub Flavored Markdown）扩展语法。
+      内置工具栏一键插入标题、加粗、斜体、链接、代码、表格、引用、列表等元素，内容自动保存到浏览器本地，刷新或意外关闭页面后会自动恢复。
+      所有解析在浏览器本地完成，无需登录、无需上传，适合随手写技术文档、博客草稿、README 与项目说明。
+    </p>
+    <h3>支持的 Markdown 语法</h3>
+    <ul>
+      <li><strong>基础语法</strong>：标题 #、加粗 **、斜体 *、删除线 ~~、链接 []()、图片 ![]()、行内代码 `、引用 &gt;、列表 -/*/+ 与 1.、分隔线 ---</li>
+      <li><strong>GFM 扩展</strong>：表格 | |、任务列表 - [x] / - [ ]、代码围栏 ```、自动链接、删除线</li>
+      <li><strong>暂不支持</strong>：脚注 [^1]、数学公式 $...$、Mermaid 图表（需配套渲染库与 CSS）</li>
+    </ul>
+    <h3>与 Typora / Obsidian 的区别</h3>
+    <p>
+      Typora、Obsidian 是本地桌面编辑器，支持插件、文件管理、双向链接，适合长期写作与知识管理。
+      本工具是浏览器轻量编辑器，无需安装、即用即走，适合临时编辑、快速预览、把 Markdown 转 HTML 复制到博客或文档系统。
+      如果需要把 Markdown 直接导出为带样式的 HTML 文件，请使用本站的「Markdown 转 HTML」工具。
+    </p>
+    <h3>使用建议</h3>
+    <p>
+      编辑长文档时建议分段频繁自动保存（本工具每次按键即写入 localStorage），写完后用「导出 .md」保存到本地。
+      如需生成可分享的预览链接，可把导出的 .md 上传到 GitHub Gist 或直接部署到静态站点。
+    </p>
+  </div>
+</ToolLayout>
